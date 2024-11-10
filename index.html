@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .navbar{
+            height: 80px;
+            width: 100%;
+            border: 1px solid black;
+            display: flex;
+        }
+        select{
+            height: 50px;
+            margin: auto;
+            margin-right: 10px;
+        }
+        #root{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 50px;
+            margin-top: 50px;
+        }
+        .child{
+            border: 1px solid;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div >
+    <nav class="navbar">
+        <div>
+            <input type="text" id="inputsearch">
+            <button id="searchbtn">🔍</button>
+        </div>     
+         <select id="select">
+             <option value="">select</option>
+             <option value="ace">Acendingh</option>
+             <option value="des">desebding</option>
+         </select>
+    </div>
+
+    </nav>
+
+
+    <div id="root"></div>
+  
+</body>
+</html>
+<script>
+    let root = document.getElementById("root")
+    let inputbox =  document.getElementById("inputsearch")
+    let searchbtn = document.getElementById("searchbtn")
+    let select = document.getElementById("select")
+
+
+    
+    let url = fetch("https://jsonplaceholder.typicode.com/posts")
+
+
+    console.log(url)
+
+    url.then(function(res){
+        
+        let res1 = res.json()
+        
+        return res1
+    })
+    .then(function(data){
+        console.log(data)
+        showdata(data)
+    })
+
+    
+
+
+    function showdata(arr){
+
+        arr.forEach(function(ele,i){
+
+            let div = document.createElement("div")
+
+            let title = document.createElement("h3")
+            title.textContent = ele.title
+
+            let id = document.createElement("p")
+            id.textContent = ele.userId
+
+
+            let body = document.createElement("p")
+            body.textContent = ele.body
+            
+            div.className = "child"
+            div.append(title,id,body)
+            root.append(div)
+        })
+       
+    }
+
+
+     function searchtitle (){
+         let value = inputbox.value
+         
+
+           let narr = data.filter(function(ele,i){
+            return ele.title.toLowerCase() == value.toLowerCase()
+         })
+         
+          
+         if(arr.length ==0){
+            root.innerHTML == "data not found"
+         }
+         else{
+            showdata(arr)
+         }
+         
+
+     }
+
+    searchbtn.addEventListener("click", searchtitle)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
